@@ -1,152 +1,147 @@
 import random
 
+
 class juegoAhorcado:
-    ESTADOS = [
-    r"""
-     +--+
-     |  |
-        |
-        |
-        |
-        |
-    =====""",
-    r"""
-     +--+
-     |  |
-     O  |
-        |
-        |
-        |
-    =====""",
-    r"""
-     +--+
-     |  |
-     O  |
-     |  |
-        |
-        |
-    =====""",
-    r"""
-     +--+
-     |  |
-     O  |
-    /|  |
-        |
-        |
-    =====""",
-    r"""
-     +--+
-     |  |
-     O  |
-    /|\ |
-        |
-        |
-    =====""",
-    r"""
-     +--+
-     |  |
-     O  |
-    /|\ |
-    /   |
-        |
-    =====""",
-    r"""
-     +--+
-     |  |
-     O  |
-    /|\ |
-    / \ |
-        |
-    ====="""]
+    estados = [
+        r"""
+         +--+
+         |  |
+            |
+            |
+            |
+            |
+        =====""",
+        r"""
+         +--+
+         |  |
+         O  |
+            |
+            |
+            |
+        =====""",
+        r"""
+         +--+
+         |  |
+         O  |
+         |  |
+            |
+            |
+        =====""",
+        r"""
+         +--+
+         |  |
+         O  |
+        /|  |
+            |
+            |
+        =====""",
+        r"""
+         +--+
+         |  |
+         O  |
+        /|\ |
+            |
+            |
+        =====""",
+        r"""
+         +--+
+         |  |
+         O  |
+        /|\ |
+        /   |
+            |
+        =====""",
+        r"""
+         +--+
+         |  |
+         O  |
+        /|\ |
+        / \ |
+            |
+        ====="""]
 
-    SALVADO = [
-    r"""
-     +--+
-        |
-        |
-    \O/ |
-     |  |
-    / \ |
-    ====="""]
+    salvado = [
+        r"""
+         +--+
+            |
+            |
+        \O/ |
+         |  |
+        / \ |
+        ====="""]
 
-    C = 'FRUTAS'
-    W = 'PERA PLATANO UVA MANZANA MELOCOTON KIWI ALBARICOQUE CEREZA CIRUELA FRESA GRANADA HIGO LIMA LIMON MANDARINA NARANJA MELON MORA NISPERO PIÑA POMELO SANDIA '.split()
+    categoriaFrutas = 'FRUTAS'
+    palabrasFrutas = 'PERA PLATANO UVA MANZANA MELOCOTON KIWI ALBARICOQUE CEREZA CIRUELA FRESA GRANADA HIGO LIMA LIMON MANDARINA NARANJA MELON MORA NISPERO PIÑA POMELO SANDIA '.split()
 
+    def jugarAhorcado(self):
 
-    def jugar(self):
-
-        li = []
-        lc = []
-        secreto = random.choice(self.W)
+        letrasIncorrectas = []
+        letrasCorrectas = []
+        palabraSecreta = random.choice(self.palabrasFrutas)
 
         while True:
-            self.dibujar(li,lc,secreto)
+            self.dibujar(letrasIncorrectas, letrasCorrectas, palabraSecreta)
 
-            nl = self.DIMELETRA(li+lc)
+            numeroLetras = self.dimeLetra(letrasIncorrectas + letrasCorrectas)
 
-            if nl in secreto:
+            if numeroLetras in palabraSecreta:
 
-                lc.append(nl)
+                letrasCorrectas.append(numeroLetras)
 
-
-                g = True
-                for sl in secreto:
-                    if sl not in lc:
-                        g = False
+                ganarPartida = True
+                for letrasSecretas in palabraSecreta:
+                    if letrasSecretas not in letrasCorrectas:
+                        ganarPartida = False
                         break
-                if g:
-                    print(self.SALVADO[0])
-                    print('¡Bien hecho! la palabra secreta es :', secreto)
+                if ganarPartida:
+                    print(self.salvado[0])
+                    print('¡Bien hecho! la palabra secreta es :', palabraSecreta)
                     print('Has ganado!')
                     break
-                    break
+
             else:
-                li.append(nl)
+                letrasIncorrectas.append(numeroLetras)
 
-                if len(li) == len(self.ESTADOS)-1:
-                    self.dibujar(li,lc,secreto)
+                if len(letrasIncorrectas) == len(self.estados) - 1:
+                    self.dibujar(letrasIncorrectas, letrasCorrectas, palabraSecreta)
                     print('Demasiados intentos!')
-                    print('La palabra era "{}"'.format(secreto))
+                    print('La palabra era "{}"'.format(palabraSecreta))
                     break
 
-
-    def dibujar(self,li,lc,secreto):
-        print(self.ESTADOS[len(li)])
-        print('La categoría es: ',self.C)
+    def dibujar(self, letrasIncorrectas, letrasCorrectas, palabraSecreta):
+        print(self.estados[len(letrasIncorrectas)])
+        print('La categoría es: ', self.categoriaFrutas)
         print()
 
         print('Letras incorrectas: ', end='')
-        for let in li:
-            print(let, end=' ')
-        if len(li) == 0 and 0 == len(li):
+        for letras in letrasIncorrectas:
+            print(letras, end=' ')
+        if len(letrasIncorrectas) == 0:
             print('No hay letras incorrectas.')
-        if len(li) == len(li)+1:
+        elif len(letrasIncorrectas) == len(letrasIncorrectas) + 1:
             print('Letras diferentes.')
-        if len(li) == len(li) + 2:
+        elif len(letrasIncorrectas) == len(letrasIncorrectas) + 2:
             print('No coinciden.')
-
-
 
         print()
 
-        spa = ['_']*len(secreto)
+        espaciosLetras = ['_'] * len(palabraSecreta)
 
-        for i in range(len(secreto)):
-            if secreto[i] in lc:
-                spa[i] = secreto[i]
+        for i in range(len(palabraSecreta)):
+            if palabraSecreta[i] in letrasCorrectas:
+                espaciosLetras[i] = palabraSecreta[i]
 
-        print(' '.join(spa))
+        print(' '.join(espaciosLetras))
 
-
-    def DIMELETRA(self, ya):
+    def dimeLetra(self, letrasElegidas):
         while True:
             print('Adivina una letra.')
             adivina = input('> ').upper()
             if len(adivina) != 1:
                 print('Introduce una única letra.')
-            elif adivina  in ya:
+            elif adivina in letrasElegidas:
                 print('Esa letra ya la sabías. Elige otra vez.')
-            elif not  adivina.isalpha():
+            elif not adivina.isalpha():
                 print('Introduce una LETRA.')
 
             else:
@@ -154,6 +149,5 @@ class juegoAhorcado:
 
 
 if __name__ == '__main__':
-    juego1=juegoAhorcado()
-    juego1.jugar()
-
+    juego1 = juegoAhorcado()
+    juego1.jugarAhorcado()
