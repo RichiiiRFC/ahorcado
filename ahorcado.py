@@ -113,7 +113,7 @@ class juegoAhorcado:
         print(self.estados[len(letrasIncorrectas)])
         print('La categoría es: ', self.categoriaFrutas)
         print()
-
+        print('Intentos restantes:', self.numIntentosRestantes(letrasIncorrectas))
         print('Letras incorrectas: ', end='')
         for letras in letrasIncorrectas:
             print(letras, end=' ')
@@ -147,6 +147,9 @@ class juegoAhorcado:
 
             else:
                 return adivina
+
+    def numIntentosRestantes(self, intentsIncorrectes):
+        return (len(self.estados) - len(intentsIncorrectes) - 1)
 
 
 if __name__ == '__main__':
