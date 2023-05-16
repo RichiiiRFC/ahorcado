@@ -77,10 +77,12 @@ class juegoAhorcado:
     categoriaElegida = random.choice(categorias)
 
     def jugarAhorcado(self):
-
+        """
+        Método jugarAhorcado
+        :return:
+        """
         letrasIncorrectas = []
         letrasCorrectas = []
-        palabraSecreta = random.choice(self.palabrasFrutas)
         nombreJugador = input("Dime el nombre del jugador: ")
 
         palabraSecreta = None
