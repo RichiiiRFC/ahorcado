@@ -135,8 +135,12 @@ class juegoAhorcado:
 
     def dimeLetra(self, letrasElegidas):
         while True:
-            print('Adivina una letra.')
+            print('Adivina una letra o escribe "TERMINAR" para finalizar la partida.')
             adivina = input('> ').upper()
+            if adivina == "TERMINAR":
+                print(self.estados[6])
+                print('La partida ha sido terminada.')
+                break
             if len(adivina) != 1:
                 print('Introduce una única letra.')
             elif adivina in letrasElegidas:
