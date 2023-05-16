@@ -80,6 +80,8 @@ class juegoAhorcado:
 
         letrasIncorrectas = []
         letrasCorrectas = []
+        palabraSecreta = random.choice(self.palabrasFrutas)
+        nombreJugador = input("Dime el nombre del jugador: ")
 
         palabraSecreta = None
         if self.categoriaElegida == "FRUTAS":
@@ -108,7 +110,7 @@ class juegoAhorcado:
                 if ganarPartida:
                     print(self.salvado[0])
                     print('¡Bien hecho! la palabra secreta es :', palabraSecreta)
-                    print('Has ganado!')
+                    print('Has ganado! ' + str(nombreJugador))
                     break
 
             else:
@@ -124,7 +126,7 @@ class juegoAhorcado:
         print(self.estados[len(letrasIncorrectas)])
         print('La categoría es: ', self.categoriaElegida)
         print()
-
+        print('Intentos restantes:', self.numIntentosRestantes(letrasIncorrectas))
         print('Letras incorrectas: ', end='')
         for letras in letrasIncorrectas:
             print(letras, end=' ')
@@ -162,6 +164,9 @@ class juegoAhorcado:
 
             else:
                 return adivina
+
+    def numIntentosRestantes(self, intentsIncorrectes):
+        return (len(self.estados) - len(intentsIncorrectes) - 1)
 
 
 if __name__ == '__main__':
